@@ -5,7 +5,6 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static validation.Validator.validate;
 

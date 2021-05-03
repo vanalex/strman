@@ -2,10 +2,11 @@ package strman;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-
+import java.util.stream.Stream;
 import static validation.Validator.validate;
 
 public class Strman {
@@ -29,5 +30,19 @@ public class Strman {
 
         return new StringBuilder(value).append(Arrays.stream(appends, 0, appends.length)
                 .collect(Collectors.joining(""))).toString();
+    }
+
+    public static Optional<Character> at(final String value, int index) {
+        if (value.isBlank()) {
+            return Optional.empty();
+        }
+
+        if (index < 0) {
+            index = value.length() + index;
+        }
+
+        final int pointer = index;
+
+        return (index < value.length() && index >= 0) ? Stream.of(value).map(s -> s.charAt(pointer)).findFirst() : Optional.empty();
     }
 }

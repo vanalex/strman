@@ -3,8 +3,7 @@ package strman;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static strman.Strman.append;
-import static strman.Strman.at;
+import static strman.Strman.*;
 
 class StrmanTest {
 
@@ -23,5 +22,18 @@ class StrmanTest {
         assertThat(at("foobar", -2)).contains('a');
         assertThat(at("foobar", 10)).isEmpty();
         assertThat(at("foobar", -10)).isEmpty();
+    }
+
+    @Test
+    void between_shouldReturnArrayWithStringsBetweenStartAndEnd() throws Exception {
+        assertThat(between("[abc][def]", "[", "]")).contains("abc", "def");
+        assertThat(between("<span>foo</span>", "<span>", "</span>")).contains("foo");
+        assertThat(between("<span>foo</span><span>bar</span>", "<span>", "</span>")).contains("foo", "bar");
+    }
+
+    @Test
+    void between_shouldReturnEmptyArrayWhenStartAndEndDoesNotExist() throws Exception {
+        assertThat(between("[abc][def]", "{", "}").length).isZero();
+        assertThat(between("", "{", "}").length).isZero();
     }
 }

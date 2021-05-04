@@ -45,4 +45,15 @@ public class Strman {
 
         return (index < value.length() && index >= 0) ? Stream.of(value).map(s -> s.charAt(pointer)).findFirst() : Optional.empty();
     }
+
+    public static String[] between(final String value, final String start, final String end) {
+        validate(value, NULL_STRING_PREDICATE, NULL_STRING_MSG_SUPPLIER);
+        validate(start, NULL_STRING_PREDICATE, () -> "'start' should be not null.");
+        validate(end, NULL_STRING_PREDICATE, () -> "'end' should be not null.");
+
+        return Arrays.stream(value.split(end))
+                .filter(subPart -> subPart.contains(start))
+                .map(subPart -> subPart.substring(subPart.indexOf(start) + start.length()))
+                .toArray(String[]::new);
+    }
 }
